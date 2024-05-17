@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    
+    <!--sweet alert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% load static%}
+    <script src="{% static 'js/app.js' %}"></script>
+    <title>Listar Peliculas</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <div style="margin: 0 auto">
+            <H3 class="text-center">LISTADO DE PELICULAS</H3>
+            <table class="table table-bordered w-75" style="margin: 0 auto">
+                <thead class="table-secondary">
+                    <tr class="text-center fw-bold">
+                        <th>Código</th>
+                        <th>Título</th>
+                        <th>Protagonista</th>
+                        <th>Duración</th>
+                        <th>Resumen</th>
+                        <th>Foto</th>
+                        <th>Genero</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in peliculas%}
+                    <tr>
+                        <td>{{p.pelCodigo}}</td>
+                        <td>{{p.pelTitulo}}</td>
+                        <td>{{p.pelProtagonista}}</td>
+                        <td>{{p.pelDuracion}}</td>
+                        <td>{{p.pelResumen}}</td>
+                        <td class="text-center">
+                            <img src="../media/{{p.pelFoto}}" alt="" width="50" height="50">
+                        </td>
+                        <td>{{p.pelGenero.genNombre}}</td>
+                        <td class="text-center">
+                            <a href="/consultarPelicula/{{p.pk}}/"> <i class="fa fa-edit text-warning"
+                                    title="editar"></i></a>
+                            <i class="fa fa-trash text-danger" title="eliminar"
+                                onclick="eliminarPelicula('{{p.pk}}')"></i>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>
